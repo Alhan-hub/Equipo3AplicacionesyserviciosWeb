@@ -1,14 +1,20 @@
-name: CI - Verificar Pull Request
+name: CD - Migrar y sembrar la base de datos
 
-# Se dispara al abrir un PR hacia main y en cada push a ese PR
+# Se dispara al hacer merge (push) a main y tambien a mano
 "on":
-  pull_request:
+  push:
     branches:
       - main
+  workflow_dispatch:
+
+# Evita que dos merges seguidos escriban en la base al mismo tiempo
+concurrency:
+  group: cd-main
+  cancel-in-progress: false
 
 jobs:
-  verificar:
-    name: Verificar codigo, formato PEP 8 y conexion a la base de datos
+  migrar-y-sembrar:
+    name: Crear tablas nuevas y cargar datos base
     runs-on: ubuntu-latest
     environment: DATABASE_URL
 
@@ -27,19 +33,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Verificar que el codigo compile
-        run: python -m compileall -q main.py src
-
-      - name: Verificar formato PEP 8 con Pylint
-        run: python -m pylint main.py src
-
-      - name: Verificar que la app FastAPI se pueda importar
+      - name: Crear tablas nuevas y ejecutar el seeder
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: |
-          python -c "from main import app; print('Rutas registradas', len(app.routes))"
-
-      - name: Verificar la conexion a la base de datos
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python -m scripts.verificar_bd
+        run: python -m src.database.seeder
