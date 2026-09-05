@@ -1,6 +1,7 @@
 from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from src.entities.miembro import Miembro
 from src.schemas.miembro import MiembroCreate, MiembroUpdate
 
 def listar(db: Session) -> list[Miembro]:
