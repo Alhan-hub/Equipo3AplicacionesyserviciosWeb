@@ -1,14 +1,22 @@
+"""Datos iniciales de la base. Se puede ejecutar cuantas veces se quiera."""
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from src.database.database import Base, SessionLocal, engine
-# Importar aquí las entidades cuando ya estén creadas por el equipo
 # from src.entities.plan import Plan
 
 PLANES_SEMILLA = [
-    {"nombre_plan": "Mensualidad Básica", "costo": 60000.00, "duracion_meses": 1},
-    {"nombre_plan": "Anualidad VIP", "costo": 600000.00, "duracion_meses": 12},
+    {
+        "nombre_plan": "Mensualidad Básica",
+        "costo": 60000.00,
+        "duracion_meses": 1
+    },
+    {
+        "nombre_plan": "Anualidad VIP",
+        "costo": 600000.00,
+        "duracion_meses": 12
+    },
 ]
 
 def crear_tablas() -> None:
@@ -42,7 +50,8 @@ def main() -> None:
     crear_tablas()
     db = SessionLocal()
     try:
-        planes = 0 
+        # planes = _insertar_si_falta(db, Plan, "nombre_plan", PLANES_SEMILLA)
+        planes = 0
     finally:
         db.close()
 
