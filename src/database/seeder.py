@@ -43,7 +43,6 @@ def main() -> None:
     db = SessionLocal()
     try:
         planes = 0 
-        pass
     finally:
         db.close()
 
