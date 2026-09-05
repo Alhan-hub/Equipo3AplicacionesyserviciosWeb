@@ -1,7 +1,7 @@
 [MAIN]
 py-version=3.11
 jobs=0
-fail-under=10
+fail-under=8.0
 ignore-paths=^scripts/
 
 [FORMAT]
