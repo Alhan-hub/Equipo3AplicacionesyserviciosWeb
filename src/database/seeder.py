@@ -42,8 +42,6 @@ def main() -> None:
     crear_tablas()
     db = SessionLocal()
     try:
-        # Descomentar cuando la entidad Plan exista
-        # planes = _insertar_si_falta(db, Plan, "nombre_plan", PLANES_SEMILLA)
         planes = 0 
         pass
     finally:
