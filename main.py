@@ -5,11 +5,6 @@ from src.database.database import Base, engine
 from src.api.miembro import router as miembros_router
 from src.api.plan import router as planes_router
 
-# Para que el lifespan cree las tablas, deben estar en memoria:
-from src.entities import miembro as _miembro_model
-from src.entities import plan as _plan_model
-
-
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     Base.metadata.create_all(bind=engine)
@@ -30,7 +25,6 @@ def inicio():
         "mensaje": "API de Gestión de Gimnasio - Activa",
         "docs": "/docs",
     }
-
 
 app.include_router(miembros_router)
 app.include_router(planes_router)
