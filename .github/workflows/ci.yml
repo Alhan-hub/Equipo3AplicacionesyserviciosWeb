@@ -1,4 +1,4 @@
-name: CI - Verificar Pull Request
+name: CI - Daniel - Verificar Pull Request
 
 # Se dispara al abrir un PR hacia main y en cada push a ese PR
 "on":
@@ -10,7 +10,6 @@ jobs:
   verificar:
     name: Verificar codigo, formato PEP 8 y conexion a la base de datos
     runs-on: ubuntu-latest
-    environment: DATABASE_URL
 
     steps:
       - name: Descargar el codigo del repositorio
@@ -35,7 +34,7 @@ jobs:
 
       - name: Verificar que la app FastAPI se pueda importar
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL_DANIEL }}
         run: |
           python -c "from main import app; print('Rutas registradas', len(app.routes))"
 
