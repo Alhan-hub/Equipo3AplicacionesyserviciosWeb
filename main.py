@@ -2,18 +2,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from src.database.database import Base, engine
-
+from src.api.miembro import router as miembros_router
 from src.api.plan import router as planes_router
-
-# Cuando los integrantes terminen, descomentarán sus routers aquí:
-# from src.api.miembro import router as miembros_router
-# from src.api.entrenador import router as entrenadores_router
-
-from src.entities import plan as _plan_model
-
-# from src.entities import miembro as _miembro_model
-# from src.entities import entrenador as _entrenador_model
-
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
@@ -36,7 +26,5 @@ def inicio():
         "docs": "/docs",
     }
 
-
+app.include_router(miembros_router)
 app.include_router(planes_router)
-# app.include_router(miembros_router)
-# app.include_router(entrenadores_router)
