@@ -35,7 +35,8 @@ jobs:
       - name: Ejecutar pruebas automatizadas con Pytest
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: pytest tests/
+          PYTHONPATH: .
+        run: python -m pytest tests/
 
       - name: Verificar que la app FastAPI se pueda importar
         env:
