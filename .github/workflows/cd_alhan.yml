@@ -34,3 +34,13 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python -m src.database.seeder
+      - name: Construir imagen Docker de la API
+        run: docker build -t api-gimnasio .
+
+      - name: Validar ejecución del contenedor Docker
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          docker run -d -p 8000:8000 -e DATABASE_URL="$DATABASE_URL" --name api-container api-gimnasio
+          sleep 5
+          docker ps | grep api-container

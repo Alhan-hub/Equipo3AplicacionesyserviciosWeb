@@ -32,6 +32,12 @@ jobs:
       - name: Verificar formato PEP 8 con Pylint
         run: python -m pylint main.py src
 
+      - name: Ejecutar pruebas automatizadas con Pytest
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PYTHONPATH: .
+        run: python -m pytest tests/
+
       - name: Verificar que la app FastAPI se pueda importar
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL_DANIEL }}
