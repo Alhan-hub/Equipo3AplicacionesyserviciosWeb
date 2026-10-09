@@ -4,7 +4,7 @@
 | Integrante | Rol / Entidad | Enlace del Video |
 | :--- | :--- | :--- |
 | **Alhan Rendón** | Miembro |https://youtu.be/LWL2RjIArWk |
-| **Daniel Ibarguen** | Miembro | https://youtu.be/Qeb2fbyK99A |
+| **Daniel Ibarguen** | | https://youtu.be/Qeb2fbyK99A |
 | **** | | [🎬 Pendiente de entrega](#) |
 
 
@@ -12,5 +12,5 @@
 | Integrante | Rol / Entidad | Enlace del Video |
 | :--- | :--- | :--- |
 | **Alhan Rendón** | Miembro | |
-| **Daniel Ibarguen** | Miembro | [🎬 Pendiente de entrega](#) |
+| **Daniel Ibarguen** | | [🎬 Pendiente de entrega](#) |
 | **** | | [🎬 Pendiente de entrega](#) |
