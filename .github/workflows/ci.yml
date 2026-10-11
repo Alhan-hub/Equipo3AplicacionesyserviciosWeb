@@ -34,7 +34,7 @@ jobs:
 
       - name: Ejecutar pruebas con Pytest
         env:
-          DATABASE_URL: sqlite://
+          DATABASE_URL: sqlite:///./test.db
         run: pytest -q
 
       - name: Verificar que la app FastAPI se pueda importar
