@@ -25,7 +25,10 @@ def obtener_miembro(miembro_id: UUID, db: Session = Depends(get_db)):
     status_code=status.HTTP_201_CREATED,
 )
 def crear_miembro(datos: MiembroCreate, db: Session = Depends(get_db)):
-    return repo.crear(db, datos)
+    try:
+        return repo.crear(db, datos)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 @router.put("/{miembro_id}", response_model=MiembroRead)
 def actualizar_miembro(
@@ -34,7 +37,10 @@ def actualizar_miembro(
     miembro = repo.obtener_por_id(db, miembro_id)
     if miembro is None:
         raise HTTPException(status_code=404, detail="Miembro no encontrado")
-    return repo.actualizar(db, miembro, datos)
+    try:
+        return repo.actualizar(db, miembro, datos)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 @router.delete("/{miembro_id}", status_code=status.HTTP_204_NO_CONTENT)
 def eliminar_miembro(miembro_id: UUID, db: Session = Depends(get_db)):

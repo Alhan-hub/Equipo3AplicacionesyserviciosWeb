@@ -8,7 +8,7 @@ name: CI - Daniel - Verificar Pull Request
 
 jobs:
   verificar:
-    name: Verificar codigo, formato PEP 8 y conexion a la base de datos
+    name: Verificar codigo, pruebas, Docker y base de datos
     runs-on: ubuntu-latest
 
     steps:
@@ -32,11 +32,10 @@ jobs:
       - name: Verificar formato PEP 8 con Pylint
         run: python -m pylint main.py src
 
-      - name: Ejecutar pruebas automatizadas con Pytest
+      - name: Ejecutar pruebas con Pytest
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          PYTHONPATH: .
-        run: python -m pytest tests/
+          DATABASE_URL: sqlite:///./test.db
+        run: pytest -q
 
       - name: Verificar que la app FastAPI se pueda importar
         env:
@@ -48,3 +47,15 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: python -m scripts.verificar_bd
+
+      - name: Construir imagen Docker
+        run: docker build -t gimnasio-api .
+
+      - name: Ejecutar la app dentro de Docker
+        env:
+          DATABASE_URL: sqlite:///./local.db
+        run: |
+          docker run -d --name gimnasio-api-container -p 8000:8000 -e DATABASE_URL=${DATABASE_URL} gimnasio-api
+          sleep 10
+          curl -fsS http://localhost:8000/ > /tmp/healthcheck.txt
+          cat /tmp/healthcheck.txt

@@ -32,6 +32,12 @@ def crear(db: Session, datos: PlanCreate) -> Plan:
 
 
 def actualizar(db: Session, plan: Plan, datos: PlanUpdate) -> Plan:
+    nombre_en_uso = db.scalar(
+        select(Plan).where(Plan.nombre_plan == datos.nombre_plan, Plan.id != plan.id)
+    )
+    if nombre_en_uso is not None:
+        raise ValueError(f"Ya existe un plan con el nombre '{datos.nombre_plan}'")
+
     plan.nombre_plan = datos.nombre_plan
     plan.costo = datos.costo
     plan.duracion_meses = datos.duracion_meses
