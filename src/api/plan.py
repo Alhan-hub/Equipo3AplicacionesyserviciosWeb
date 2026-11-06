@@ -36,7 +36,10 @@ def actualizar_plan(plan_id: UUID, datos: PlanUpdate, db: Session = Depends(get_
     plan = repo.obtener_por_id(db, plan_id)
     if plan is None:
         raise HTTPException(status_code=404, detail="Plan no encontrado")
-    return repo.actualizar(db, plan, datos)
+    try:
+        return repo.actualizar(db, plan, datos)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @router.delete("/{plan_id}", status_code=status.HTTP_204_NO_CONTENT)

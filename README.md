@@ -1,5 +1,25 @@
 # Equipo3AplicacionesyserviciosWeb
-### Evidencias de Evaluación (CI/CD)
+
+API REST de gimnasio desarrollada con FastAPI, SQLAlchemy y PostgreSQL.
+
+## Pruebas automatizadas
+
+Ejecuta la suite con:
+
+```bash
+pytest -q
+```
+
+## Docker
+
+Construye y ejecuta la aplicación en contenedor con:
+
+```bash
+docker build -t gimnasio-api .
+docker run --rm -p 8000:8000 -e DATABASE_URL=sqlite:///./local.db gimnasio-api
+```
+
+## Evidencias de Evaluación (CI/CD)
 
 | Integrante | Rol / Entidad | Enlace del Video |
 | :--- | :--- | :--- |
